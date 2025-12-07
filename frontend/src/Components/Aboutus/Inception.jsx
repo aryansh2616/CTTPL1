@@ -9,7 +9,7 @@ export default function Inception() {
       <p className="text-md text-gray-800 leading-relaxed">
         Founded in 1990 by Mr. P.S. Choudhary, Choudhary Tours &amp; Travels Pvt. Ltd. (CTTPL) began
         with a vision to transform transportation services across India. What started as a small
-        operation has evolved into a vast network spanning eight major cities and a fleet strength
+        operation has evolved into a vast network spanning in major cities and a fleet strength
         of over 4000 vehicles. CTTPL’s journey has been shaped by a deep commitment to customer
         safety, integrity, and innovation. Today, under the leadership of Mr. Rajeev Choudhary,
         CEO, and Mr. Sandeep Choudhary, Joint Managing Director, CTTPL stands as a trusted partner
