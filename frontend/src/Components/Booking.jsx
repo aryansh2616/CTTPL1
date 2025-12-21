@@ -18,7 +18,7 @@ const initialForm = {
 // ✅ Automatically pick backend URL based on environment
 const BACKEND_URL =
   import.meta.env.PROD
-    ? "https://cttpl.onrender.com/" // your deployed backend
+    ? "https://cttpl.onrender.com/sendemail" // your deployed backend
     : "http://localhost:8080/sendemail"; // local dev backend
 
 const OnSpotRentalsForm = () => {
