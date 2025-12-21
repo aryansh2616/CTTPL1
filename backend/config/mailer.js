@@ -1,42 +1,31 @@
 import nodemailer from "nodemailer";
-import { google } from "googleapis";
 
-const OAuth2 = google.auth.OAuth2;
-
-const oauth2Client = new OAuth2(
-  process.env.CLIENT_ID,
-  process.env.CLIENT_SECRET,
-  "https://developers.google.com/oauthplayground"
-);
-
-oauth2Client.setCredentials({
-  refresh_token: process.env.REFRESH_TOKEN,
+console.log("🔎 ENV CHECK:", {
+  host: process.env.BREVO_SMTP_HOST,
+  port: process.env.BREVO_SMTP_PORT,
+  user: process.env.BREVO_SMTP_USER,
+  passLength: process.env.BREVO_SMTP_PASS?.length,
+  mailUser: process.env.MAIL_USER,
 });
 
-export const sendMail = async (mailData) => {
-  const accessToken = await oauth2Client.getAccessToken();
+const transporter = nodemailer.createTransport({
+  host: process.env.BREVO_SMTP_HOST, // smtp-relay.brevo.com
+  port: Number(process.env.BREVO_SMTP_PORT), // 587
+  secure: false, // STARTTLS
+  auth: {
+    user: process.env.BREVO_SMTP_USER, // "apikey"
+    pass: process.env.BREVO_SMTP_PASS, // Brevo API Key
+  },
+});
 
-  const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false, // ✅ STARTTLS
-    auth: {
-      type: "OAuth2",
-      user: process.env.MAIL_USER,
-      clientId: process.env.CLIENT_ID,
-      clientSecret: process.env.CLIENT_SECRET,
-      refreshToken: process.env.REFRESH_TOKEN,
-      accessToken: accessToken.token, // ✅ MUST be .token
-    },
-    tls: {
-      rejectUnauthorized: false,
-    },
-  });
 
-  // ✅ VERIFY MUST BE HERE
+export const verifyMailer = async () => {
   await transporter.verify();
-  console.log("✅ SMTP connection verified");
+  console.log("✅ Brevo SMTP connection verified");
+};
 
+
+export const sendMail = async (mailData) => {
   return transporter.sendMail({
     from: `"Choudhary Tours Enquiry" <${process.env.MAIL_USER}>`,
     ...mailData,
